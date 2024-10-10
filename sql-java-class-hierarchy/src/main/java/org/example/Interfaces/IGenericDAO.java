@@ -1,12 +1,11 @@
 package org.example.Interfaces;
-import java.util.Optional;
+import java.sql.SQLException;
 import java.util.List;
-public interface IGenericDAO<T, ID>
+public interface IGenericDAO<T, K>
 {
-    Optional<T> findById(ID id);
-    List<T> findAll();
-    void save(T entity);
-    void update(T entity);
-    void delete(T entity);
-    void deleteById(ID id);
+    void insert(T entity) throws SQLException;
+    T findById(K id) throws SQLException;
+    List<T> findAll() throws SQLException;
+    void update(T entity) throws SQLException;
+    void delete(K id) throws SQLException;
 }
