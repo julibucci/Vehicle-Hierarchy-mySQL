@@ -1,88 +1,73 @@
 package org.example.Classes;
 import java.sql.Connection;
+import java.sql.SQLException;
+import javax.sql.DataSource;
+import org.example.Interfaces.IGenericDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
-import javax.sql.DataSource;
+import java.sql.Statement;
+import java.util.ArrayList;
 
-public class AbstractDAOClass<T, ID> implements IGenericDAO<T.ID>
+public abstract class AbstractDAOClass<T, K> implements IGenericDAO<T,K>
 {
-    private DataSource dataSource;
+    protected DataSource dataSource;
 
-    public AbstractDAO(DataSource dataSource) {
+    public AbstractDAOClass(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     protected Connection getConnection() throws SQLException {
-        return dataSource.getConnection();
+        return dataSource.getConnection(); // Usamos el pool de conexiones
     }
 
+    // Metodo generico para encontrar por ID, que sera llamado por las clases especificas del DAO
     @Override
-    public Optional<T> findById(ID id) {
-        try (Connection conn = getConnection()) {
-            return mapResultSet(executeFindById(conn, id));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Optional.empty();
+    public T findById(K id) throws SQLException {
+        String sql = getFindByIdQuery();
+        T entity = null;
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            setIdInStatement(stmt, id);  // Metodo que cada DAO debe implementar para personalizar el ID
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    entity = mapResultSetToEntity(rs);  // Metodo que mapea el resultado
+                }
+            }
+        }
+        return entity;
+    }
+
+    // Metodo generico para encontrar todas las entidades
+    @Override
+    public List<T> findAll() throws SQLException {
+        String sql = getFindAllQuery();
+        List<T> entities = new ArrayList<>();
+        try (Connection connection = getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                entities.add(mapResultSetToEntity(rs));  // Mapeamos cada fila del ResultSet a la entidad correspondiente
+            }
+        }
+        return entities;
+    }
+
+    // Método generico para eliminar una entidad por ID
+    @Override
+    public void delete(K id) throws SQLException {
+        String sql = getDeleteQuery();
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            setIdInStatement(stmt, id);  // Usamos el metodo para personalizar la sentencia SQL con el ID
+            stmt.executeUpdate();
         }
     }
 
-    @Override
-    public List<T> findAll() {
-        try (Connection conn = getConnection()) {
-            return mapToList(executeFindAll(conn));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return List.of();
-        }
-    }
-
-    @Override
-    public void save(T entity) {
-        try (Connection conn = getConnection()) {
-            executeSave(conn, entity);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void update(T entity) {
-        try (Connection conn = getConnection()) {
-            executeUpdate(conn, entity);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delete(T entity) {
-        try (Connection conn = getConnection()) {
-            executeDelete(conn, entity);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void deleteById(ID id) {
-        try (Connection conn = getConnection()) {
-            executeDeleteById(conn, id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected abstract PreparedStatement executeFindById(Connection conn, ID id) throws SQLException;
-    protected abstract PreparedStatement executeFindAll(Connection conn) throws SQLException;
-    protected abstract void executeSave(Connection conn, T entity) throws SQLException;
-    protected abstract void executeUpdate(Connection conn, T entity) throws SQLException;
-    protected abstract void executeDelete(Connection conn, T entity) throws SQLException;
-    protected abstract void executeDeleteById(Connection conn, ID id) throws SQLException;
-
-    protected abstract Optional<T> mapResultSet(ResultSet rs) throws SQLException;
-    protected abstract List<T> mapToList(ResultSet rs) throws SQLException;
+    // Metodos abstractos que deben ser implementados por cada clase DAO concreta
+    protected abstract String getFindByIdQuery();
+    protected abstract String getFindAllQuery();
+    protected abstract String getDeleteQuery();
+    protected abstract void setIdInStatement(PreparedStatement stmt, K id) throws SQLException;
+    protected abstract T mapResultSetToEntity(ResultSet rs) throws SQLException;
 }
-

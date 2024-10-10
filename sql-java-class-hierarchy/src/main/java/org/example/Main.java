@@ -1,17 +1,28 @@
 package org.example;
+import org.example.Classes.Vehicle;
+import javax.sql.DataSource;
+import org.example.Classes.ConnectionPool;
+import org.example.Classes.VehicleDAO;
+import java.sql.SQLException;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        DataSource dataSource = ConnectionPool.getDataSource();
+        VehicleDAO vehicleDAO = new VehicleDAO(dataSource);
+
+        try {
+            // Insert a new vehicle
+            Vehicle vehicle = new Vehicle(0, "Toyota", "Corolla");
+            vehicleDAO.insert(vehicle);
+
+            // Retrieve and print vehicle
+            Vehicle retrievedVehicle = vehicleDAO.findById(1);
+            System.out.println("Vehicle: " + retrievedVehicle.getBrand() + " " + retrievedVehicle.getModel());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
     }
 }
