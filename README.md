@@ -34,14 +34,17 @@ Main method: getDataSource().
 Optimizes database connection management by reusing connections, improving application performance.
 
 Exercise 1: XML and XSD Creation
+
 -Created an XML file (vehicles.xml) representing a vehicle hierarchy.(located in the Resources folder)
 -Developed an XSD schema (vehicles.xsd) to validate the structure of the XML file.(located in the Resources folder)
 
 Exercise 2: XML Validation
+
 -Implemented an XMLValidator class to validate the XML file against the XSD schema.
 -Checked the validity of the XML file and provided feedback on validation results.
 
 Exercise 3: XML Parsing
+
 -Created an XMLParser class to parse the validated XML file.
 -Extracted vehicle details (ID, brand, model, etc.) from the XML file.
--Displayed the extracted information in the console for verification.
+
