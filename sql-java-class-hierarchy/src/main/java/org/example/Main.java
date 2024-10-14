@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import org.example.Interfaces.IGenericDAO;
 import org.example.Classes.VehicleServiceImpl;
 import org.example.Classes.XMLValidator;
+import org.example.Classes.XMLParser;
+
 
 public class Main {
     public static void main(String[] args)
@@ -14,6 +16,8 @@ public class Main {
 // Validar XML con XSD usando la clase XMLValidator
         String xmlFilePath = "C:\\Users\\julie\\OneDrive\\Documentos\\Vehicle-Hierarchy-mySQL\\sql-java-class-hierarchy\\src\\main\\resources\\vehicles.xml";
         String xsdFilePath = "C:\\Users\\julie\\OneDrive\\Documentos\\Vehicle-Hierarchy-mySQL\\sql-java-class-hierarchy\\src\\main\\resources\\vehicles.xsd";
+
+        // Valida XML con XSD usando la clase XMLValidator
         boolean isXMLValid = XMLValidator.validateXMLWithXSD(xmlFilePath, xsdFilePath);
 
         if (isXMLValid) {
@@ -29,6 +33,10 @@ public class Main {
         VehicleServiceImpl vehicleService = new VehicleServiceImpl(vehicleDAO);
 
         try {
+            // Parsear el archivo XML
+            XMLParser xmlParser = new XMLParser();
+            xmlParser.parseXMLFile(xmlFilePath);
+
             // Insertar un nuevo vehiculo
             Vehicle vehicle = new Vehicle(0, "Toyota", "Corolla");
             vehicleService.addVehicle(vehicle);
