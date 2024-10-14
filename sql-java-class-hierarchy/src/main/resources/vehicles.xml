@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vehicles xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.example.com/vehicles vehicles.xsd">
+    <vehicle>
+        <id>1</id>
+        <brand>Volvo</brand>
+        <model>9700</model>
+        <bus>
+            <seatingCapacity>50</seatingCapacity>
+            <numberOfDoors>2</numberOfDoors>
+            <fuelType>Diesel</fuelType>
+            <passengers>
+                <passenger>
+                    <passengerId>1</passengerId>
+                    <name>Juan Perez</name>
+                </passenger>
+                <passenger>
+                    <passengerId>2</passengerId>
+                    <name>Maria Lopez</name>
+                </passenger>
+            </passengers>
+        </bus>
+    </vehicle>
+
+    <vehicle>
+        <id>2</id>
+        <brand>Boeing</brand>
+        <model>747</model>
+        <airplane>
+            <altitude>35000</altitude>
+            <passengerCapacity>400</passengerCapacity>
+            <fuelType>Jet Fuel</fuelType>
+        </airplane>
+    </vehicle>
+
+    <vehicle>
+        <id>3</id>
+        <brand>Mercedes-Benz</brand>
+        <model>Actros</model>
+        <truck>
+            <loadCapacity>12000</loadCapacity>
+            <cabinSize>2</cabinSize>
+        </truck>
+    </vehicle>
+</vehicles>
