@@ -32,3 +32,7 @@ ConnectionPool
 Purpose: A class that manages a connection pool to the database using Apache Commons DBCP.
 Main method: getDataSource().
 Optimizes database connection management by reusing connections, improving application performance.
+
+- Created XML file with vehicle data (vehicles.xml).--> It is in the folder Resources
+- Created XSD schema to validate the XML file (vehicles.xsd). --> It is in the folder Resources
+- Implemented method to validate the XML file using the XSD schema.
