@@ -1,9 +1,15 @@
 package org.example.Model.Classes;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Truck extends Vehicle {
     private int truckID;
     private int loadCapacity;
     private int cabinSize;
+
+    public Truck() {}  // Required by JAXB
 
     // Constructor
     public Truck(int vehicleID, String brand, String model, int truckID, int loadCapacity, int cabinSize) {
@@ -13,7 +19,7 @@ public class Truck extends Vehicle {
         this.cabinSize = cabinSize;
     }
 
-    // Getters y Setters
+    @XmlElement
     public int getTruckID() {
         return truckID;
     }
@@ -22,6 +28,7 @@ public class Truck extends Vehicle {
         this.truckID = truckID;
     }
 
+    @XmlElement
     public int getLoadCapacity() {
         return loadCapacity;
     }
@@ -30,6 +37,7 @@ public class Truck extends Vehicle {
         this.loadCapacity = loadCapacity;
     }
 
+    @XmlElement
     public int getCabinSize() {
         return cabinSize;
     }

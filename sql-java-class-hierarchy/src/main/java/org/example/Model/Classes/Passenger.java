@@ -1,8 +1,14 @@
 package org.example.Model.Classes;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Passenger {
     private int passengerID;
     private String name;
+
+    public Passenger() {}  // Required by JAXB
 
     // Constructor
     public Passenger(int passengerID, String name) {
@@ -10,7 +16,7 @@ public class Passenger {
         this.name = name;
     }
 
-    // Getters y Setters
+    @XmlElement
     public int getPassengerID() {
         return passengerID;
     }
@@ -19,6 +25,7 @@ public class Passenger {
         this.passengerID = passengerID;
     }
 
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -27,4 +34,3 @@ public class Passenger {
         this.name = name;
     }
 }
-

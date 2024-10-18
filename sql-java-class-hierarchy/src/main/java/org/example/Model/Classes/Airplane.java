@@ -1,10 +1,16 @@
 package org.example.Model.Classes;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Airplane extends Vehicle {
     private int airplaneID;
     private int altitude;
     private int passengerCapacity;
     private String fuelType;
+
+    public Airplane() {}  // Required by JAXB
 
     // Constructor
     public Airplane(int vehicleID, String brand, String model, int airplaneID, int altitude, int passengerCapacity, String fuelType) {
@@ -15,7 +21,7 @@ public class Airplane extends Vehicle {
         this.fuelType = fuelType;
     }
 
-    // Getters y Setters
+    @XmlElement
     public int getAirplaneID() {
         return airplaneID;
     }
@@ -24,6 +30,7 @@ public class Airplane extends Vehicle {
         this.airplaneID = airplaneID;
     }
 
+    @XmlElement
     public int getAltitude() {
         return altitude;
     }
@@ -32,6 +39,7 @@ public class Airplane extends Vehicle {
         this.altitude = altitude;
     }
 
+    @XmlElement
     public int getPassengerCapacity() {
         return passengerCapacity;
     }
@@ -40,6 +48,7 @@ public class Airplane extends Vehicle {
         this.passengerCapacity = passengerCapacity;
     }
 
+    @XmlElement
     public String getFuelType() {
         return fuelType;
     }
@@ -48,4 +57,3 @@ public class Airplane extends Vehicle {
         this.fuelType = fuelType;
     }
 }
-

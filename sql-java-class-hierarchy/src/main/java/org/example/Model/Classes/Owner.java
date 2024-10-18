@@ -2,10 +2,18 @@ package org.example.Model.Classes;
 
 import java.util.List;
 
+import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Owner {
     private int ownerID;
     private String name;
     private List<Vehicle> ownedVehicles;
+
+    public Owner() {}  // Required by JAXB
 
     // Constructor
     public Owner(int ownerID, String name, List<Vehicle> ownedVehicles) {
@@ -14,7 +22,7 @@ public class Owner {
         this.ownedVehicles = ownedVehicles;
     }
 
-    // Getters y Setters
+    @XmlElement
     public int getOwnerID() {
         return ownerID;
     }
@@ -23,6 +31,7 @@ public class Owner {
         this.ownerID = ownerID;
     }
 
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -31,6 +40,8 @@ public class Owner {
         this.name = name;
     }
 
+    @XmlElementWrapper(name = "ownedVehicles")
+    @XmlElement(name = "vehicle")
     public List<Vehicle> getOwnedVehicles() {
         return ownedVehicles;
     }
@@ -39,4 +50,3 @@ public class Owner {
         this.ownedVehicles = ownedVehicles;
     }
 }
-

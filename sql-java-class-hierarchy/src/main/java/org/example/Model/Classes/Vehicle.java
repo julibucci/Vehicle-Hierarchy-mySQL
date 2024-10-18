@@ -1,9 +1,15 @@
 package org.example.Model.Classes;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public abstract class Vehicle {
     private int vehicleID;
     private String brand;
     private String model;
+
+    public Vehicle() {}  // Required by JAXB
 
     // Constructor
     public Vehicle(int vehicleID, String brand, String model) {
@@ -12,7 +18,7 @@ public abstract class Vehicle {
         this.model = model;
     }
 
-    // Getters y Setters
+    @XmlElement
     public int getVehicleID() {
         return vehicleID;
     }
@@ -21,6 +27,7 @@ public abstract class Vehicle {
         this.vehicleID = vehicleID;
     }
 
+    @XmlElement
     public String getBrand() {
         return brand;
     }
@@ -29,6 +36,7 @@ public abstract class Vehicle {
         this.brand = brand;
     }
 
+    @XmlElement
     public String getModel() {
         return model;
     }

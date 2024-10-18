@@ -2,12 +2,20 @@ package org.example.Model.Classes;
 
 import java.util.List;
 
+import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
+@XmlRootElement
 public class Bus extends Vehicle {
     private int busID;
     private int seatingCapacity;
     private int numberOfDoors;
     private String fuelType;
     private List<Passenger> passengers;
+
+    public Bus() {}  // Required by JAXB
 
     // Constructor
     public Bus(int vehicleID, String brand, String model, int busID, int seatingCapacity, int numberOfDoors, String fuelType, List<Passenger> passengers) {
@@ -19,7 +27,7 @@ public class Bus extends Vehicle {
         this.passengers = passengers;
     }
 
-    // Getters y Setters
+    @XmlElement
     public int getBusID() {
         return busID;
     }
@@ -28,6 +36,7 @@ public class Bus extends Vehicle {
         this.busID = busID;
     }
 
+    @XmlElement
     public int getSeatingCapacity() {
         return seatingCapacity;
     }
@@ -36,6 +45,7 @@ public class Bus extends Vehicle {
         this.seatingCapacity = seatingCapacity;
     }
 
+    @XmlElement
     public int getNumberOfDoors() {
         return numberOfDoors;
     }
@@ -44,6 +54,7 @@ public class Bus extends Vehicle {
         this.numberOfDoors = numberOfDoors;
     }
 
+    @XmlElement
     public String getFuelType() {
         return fuelType;
     }
@@ -52,6 +63,8 @@ public class Bus extends Vehicle {
         this.fuelType = fuelType;
     }
 
+    @XmlElementWrapper(name = "passengers")
+    @XmlElement(name = "passenger")
     public List<Passenger> getPassengers() {
         return passengers;
     }
@@ -60,4 +73,3 @@ public class Bus extends Vehicle {
         this.passengers = passengers;
     }
 }
-
