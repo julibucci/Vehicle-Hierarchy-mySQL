@@ -7,17 +7,24 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
-@XmlRootElement
+import javax.xml.bind.annotation.XmlElement;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
+
+@XmlRootElement(name = "Bus")  // Matches <Bus> in your XML
 public class Bus extends Vehicle {
+
     private int busID;
     private int seatingCapacity;
     private int numberOfDoors;
     private String fuelType;
     private List<Passenger> passengers;
 
-    public Bus() {}  // Required by JAXB
+    public Bus() {}
 
-    // Constructor
     public Bus(int vehicleID, String brand, String model, int busID, int seatingCapacity, int numberOfDoors, String fuelType, List<Passenger> passengers) {
         super(vehicleID, brand, model);
         this.busID = busID;
@@ -27,7 +34,7 @@ public class Bus extends Vehicle {
         this.passengers = passengers;
     }
 
-    @XmlElement
+    @XmlElement(name = "BusID")
     public int getBusID() {
         return busID;
     }
@@ -36,7 +43,7 @@ public class Bus extends Vehicle {
         this.busID = busID;
     }
 
-    @XmlElement
+    @XmlElement(name = "SeatingCapacity")
     public int getSeatingCapacity() {
         return seatingCapacity;
     }
@@ -45,7 +52,7 @@ public class Bus extends Vehicle {
         this.seatingCapacity = seatingCapacity;
     }
 
-    @XmlElement
+    @XmlElement(name = "NumberOfDoors")
     public int getNumberOfDoors() {
         return numberOfDoors;
     }
@@ -54,7 +61,7 @@ public class Bus extends Vehicle {
         this.numberOfDoors = numberOfDoors;
     }
 
-    @XmlElement
+    @XmlElement(name = "FuelType")
     public String getFuelType() {
         return fuelType;
     }
@@ -63,13 +70,23 @@ public class Bus extends Vehicle {
         this.fuelType = fuelType;
     }
 
-    @XmlElementWrapper(name = "passengers")
-    @XmlElement(name = "passenger")
+    @XmlElement(name = "Passenger")
     public List<Passenger> getPassengers() {
         return passengers;
     }
 
     public void setPassengers(List<Passenger> passengers) {
         this.passengers = passengers;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Bus{" +
+                "busID=" + busID +
+                ", seatingCapacity=" + seatingCapacity +
+                ", numberOfDoors=" + numberOfDoors +
+                ", fuelType='" + fuelType + '\'' +
+                ", passengers=" + passengers +
+                '}';
     }
 }

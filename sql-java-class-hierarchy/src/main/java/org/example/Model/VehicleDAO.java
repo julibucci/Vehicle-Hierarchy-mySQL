@@ -15,7 +15,6 @@ public class VehicleDAO extends AbstractDAOClass<Vehicle, Integer> {
         super(dataSource);
     }
 
-    // Metodo para identificar el tipo de vehículo
     private String getVehicleType(Vehicle vehicle) {
         if (vehicle instanceof Bus) {
             return "Bus";
@@ -66,7 +65,7 @@ public class VehicleDAO extends AbstractDAOClass<Vehicle, Integer> {
 
     @Override
     public void insert(Vehicle vehicle) throws SQLException {
-        // Primero insertamos los datos generales en la tabla Vehicle
+        // First, insert general data into the Vehicle table
         String sqlVehicle = "INSERT INTO Vehicle (brand, model, vehicle_type) VALUES (?, ?, ?)";
 
         try (Connection connection = getConnection();
@@ -76,30 +75,28 @@ public class VehicleDAO extends AbstractDAOClass<Vehicle, Integer> {
             stmtVehicle.setString(2, vehicle.getModel());
             stmtVehicle.setString(3, getVehicleType(vehicle));
 
-            // Ejecutar la inserción en la tabla Vehicle
+            // Execute the insertion into the Vehicle table
             stmtVehicle.executeUpdate();
 
-            // Obtener el ID generado para Vehicle
+            // Retrieve the generated vehicle ID
             ResultSet generatedKeys = stmtVehicle.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int vehicleID = generatedKeys.getInt(1);
 
-                // Ahora insertamos en la tabla específica según el tipo de vehículo
-                switch (getVehicleType(vehicle)) {
-                    case "Bus":
-                        insertBus((Bus) vehicle, vehicleID);
-                        break;
-                    case "Airplane":
-                        insertAirplane((Airplane) vehicle, vehicleID);
-                        break;
-                    case "Truck":
-                        insertTruck((Truck) vehicle, vehicleID);
-                        break;
-
+                // Now insert into the specific table depending on the vehicle type
+                if (vehicle instanceof Bus) {
+                    insertBus((Bus) vehicle, vehicleID);
+                } else if (vehicle instanceof Airplane) {
+                    insertAirplane((Airplane) vehicle, vehicleID);
+                } else if (vehicle instanceof Truck) {
+                    insertTruck((Truck) vehicle, vehicleID);
+                } else {
+                    throw new SQLException("Unknown vehicle type");
                 }
             }
         }
     }
+
 
     @Override
     public Vehicle findById(Integer id) throws SQLException {

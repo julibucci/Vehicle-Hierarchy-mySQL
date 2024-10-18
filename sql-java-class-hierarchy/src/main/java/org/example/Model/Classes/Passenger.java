@@ -3,20 +3,20 @@ package org.example.Model.Classes;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "Passenger")
 public class Passenger {
+
     private int passengerID;
     private String name;
 
-    public Passenger() {}  // Required by JAXB
+    public Passenger() {}
 
-    // Constructor
     public Passenger(int passengerID, String name) {
         this.passengerID = passengerID;
         this.name = name;
     }
 
-    @XmlElement
+    @XmlElement(name = "PassengerID")
     public int getPassengerID() {
         return passengerID;
     }
@@ -25,12 +25,20 @@ public class Passenger {
         this.passengerID = passengerID;
     }
 
-    @XmlElement
+    @XmlElement(name = "Name")
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Passenger{" +
+                "passengerID=" + passengerID +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

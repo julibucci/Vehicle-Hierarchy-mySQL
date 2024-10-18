@@ -1,28 +1,17 @@
 package org.example.Model.Classes;
 
 import java.util.List;
-
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "Owner")
 public class Owner {
+
     private int ownerID;
     private String name;
-    private List<Vehicle> ownedVehicles;
+    private List<Integer> ownedVehicleIDs;
 
-    public Owner() {}  // Required by JAXB
-
-    // Constructor
-    public Owner(int ownerID, String name, List<Vehicle> ownedVehicles) {
-        this.ownerID = ownerID;
-        this.name = name;
-        this.ownedVehicles = ownedVehicles;
-    }
-
-    @XmlElement
+    @XmlElement(name = "OwnerID")
     public int getOwnerID() {
         return ownerID;
     }
@@ -31,7 +20,7 @@ public class Owner {
         this.ownerID = ownerID;
     }
 
-    @XmlElement
+    @XmlElement(name = "Name")
     public String getName() {
         return name;
     }
@@ -40,13 +29,21 @@ public class Owner {
         this.name = name;
     }
 
-    @XmlElementWrapper(name = "ownedVehicles")
-    @XmlElement(name = "vehicle")
-    public List<Vehicle> getOwnedVehicles() {
-        return ownedVehicles;
+    @XmlElement(name = "VehicleID")
+    public List<Integer> getOwnedVehicleIDs() {
+        return ownedVehicleIDs;
     }
 
-    public void setOwnedVehicles(List<Vehicle> ownedVehicles) {
-        this.ownedVehicles = ownedVehicles;
+    public void setOwnedVehicleIDs(List<Integer> ownedVehicleIDs) {
+        this.ownedVehicleIDs = ownedVehicleIDs;
+    }
+
+    @Override
+    public String toString() {
+        return "Owner{" +
+                "ownerID=" + ownerID +
+                ", name='" + name + '\'' +
+                ", ownedVehicleIDs=" + ownedVehicleIDs +
+                '}';
     }
 }
