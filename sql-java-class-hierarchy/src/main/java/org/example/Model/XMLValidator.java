@@ -1,4 +1,4 @@
-package org.example.Classes;
+package org.example.Model;
 import org.xml.sax.SAXException;
 
 import javax.xml.validation.Schema;
@@ -16,11 +16,11 @@ public class XMLValidator {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
             // Cargar el esquema XSD
-            Schema schema = factory.newSchema(new File(xsdPath));
+            Schema schema = factory.newSchema(new File("C:\\Users\\julie\\OneDrive\\Documentos\\Vehicle-Hierarchy-mySQL\\sql-java-class-hierarchy\\src\\main\\resources\\vehicles.xsd"));
             Validator validator = schema.newValidator();
 
             // Validar el archivo XML
-            validator.validate(new StreamSource(new File(xmlPath)));
+            validator.validate(new StreamSource(new File("C:\\Users\\julie\\OneDrive\\Documentos\\Vehicle-Hierarchy-mySQL\\sql-java-class-hierarchy\\src\\main\\resources\\vehicles.xml")));
             return true;
         } catch (IOException | SAXException e)
         {

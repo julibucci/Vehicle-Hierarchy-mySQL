@@ -1,4 +1,4 @@
-package org.example.Classes;
+package org.example.Model;
 import org.apache.commons.dbcp2.BasicDataSource;
 import javax.sql.DataSource;
 
@@ -9,7 +9,7 @@ public class ConnectionPool {
     static {
         ds.setUrl("jdbc:mysql://localhost:3306/hierarchyVehicle");
         ds.setUsername("root");
-        ds.setPassword("Kira202120"); //Lo probe usando mi constraseña de mySQL
+        ds.setPassword("Kira202120");
         ds.setMinIdle(5);
         ds.setMaxIdle(10);
         ds.setMaxOpenPreparedStatements(100);

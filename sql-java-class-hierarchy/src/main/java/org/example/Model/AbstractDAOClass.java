@@ -1,4 +1,4 @@
-package org.example.Classes;
+package org.example.Model;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.sql.DataSource;

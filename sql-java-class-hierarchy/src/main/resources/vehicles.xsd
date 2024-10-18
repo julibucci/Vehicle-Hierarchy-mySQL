@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:element name="vehicles">
+    <!-- Vehicle class -->
+    <xs:element name="Vehicles">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="vehicle" maxOccurs="unbounded">
+                <xs:element name="Vehicle" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="id" type="xs:int"/>
-                            <xs:element name="brand" type="xs:string"/>
-                            <xs:element name="model" type="xs:string"/>
+                            <xs:element name="VehicleID" type="xs:int"/>
+                            <xs:element name="Brand" type="xs:string"/>
+                            <xs:element name="Model" type="xs:string"/>
                             <xs:choice>
-                                <xs:element name="bus" type="BusType"/>
-                                <xs:element name="airplane" type="AirplaneType"/>
-                                <xs:element name="truck" type="TruckType"/>
+                                <xs:element name="Truck" type="TruckType"/>
+                                <xs:element name="Bus" type="BusType"/>
+                                <xs:element name="Airplane" type="AirplaneType"/>
                             </xs:choice>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Owner" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="OwnerID" type="xs:int"/>
+                            <xs:element name="Name" type="xs:string"/>
+                            <xs:element name="OwnedVehicles">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="VehicleID" type="xs:int" maxOccurs="unbounded"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -22,41 +39,49 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- Truck class -->
+    <xs:complexType name="TruckType">
+        <xs:sequence>
+            <xs:element name="TruckID" type="xs:int"/>
+            <xs:element name="LoadCapacity" type="xs:int"/>
+            <xs:element name="CabinSize" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Bus class -->
     <xs:complexType name="BusType">
         <xs:sequence>
-            <xs:element name="seatingCapacity" type="xs:int"/>
-            <xs:element name="numberOfDoors" type="xs:int"/>
-            <xs:element name="fuelType" type="xs:string"/>
-            <xs:element name="passengers" minOccurs="0">
+            <xs:element name="BusID" type="xs:int"/>
+            <xs:element name="SeatingCapacity" type="xs:int"/>
+            <xs:element name="NumberOfDoors" type="xs:int"/>
+            <xs:element name="FuelType" type="xs:string"/>
+            <xs:element name="Passengers">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="passenger" type="PassengerType" maxOccurs="unbounded"/>
+                        <xs:element name="Passenger" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="PassengerID" type="xs:int"/>
+                                    <xs:element name="Name" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="PassengerType">
-        <xs:sequence>
-            <xs:element name="passengerId" type="xs:int"/>
-            <xs:element name="name" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
-
+    <!-- Airplane class -->
     <xs:complexType name="AirplaneType">
         <xs:sequence>
-            <xs:element name="altitude" type="xs:int"/>
-            <xs:element name="passengerCapacity" type="xs:int"/>
-            <xs:element name="fuelType" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="TruckType">
-        <xs:sequence>
-            <xs:element name="loadCapacity" type="xs:int"/>
-            <xs:element name="cabinSize" type="xs:int"/>
+            <xs:element name="AirplaneID" type="xs:int"/>
+            <xs:element name="Altitude" type="xs:int"/>
+            <xs:element name="PassengerCapacity" type="xs:int"/>
+            <xs:element name="FuelType" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
 </xs:schema>
+
+
