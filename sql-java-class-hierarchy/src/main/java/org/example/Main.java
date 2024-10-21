@@ -37,17 +37,6 @@ public class Main {
             JAXBParser parser = new JAXBParser();
             Vehicles vehicles = parser.parseVehiclesXML(xmlFilePath);  // Parse XML into Vehicles object
 
-            // Iterate over the list of vehicles and insert them into the database
-            for (Vehicle vehicle : vehicles.getVehicles()) {
-                vehicleService.addVehicle(vehicle);  // Insert each vehicle into the database
-                System.out.println("Vehículo insertado: " + vehicle);  // Print the vehicle details
-            }
-
-            // Iterate over the owners and print their details (if required)
-            for (Owner owner : vehicles.getOwners()) {
-                System.out.println("Propietario: " + owner.getName());
-                System.out.println("Vehículos del propietario: " + owner.getOwnedVehicleIDs());
-            }
 
         } catch (SQLException e) {
             e.printStackTrace();  // Handle SQL exceptions
@@ -63,7 +52,7 @@ public class Main {
 
             // Print parsed vehicles
             for (Vehicle vehicle : vehicles.getVehicles()) {
-                System.out.println(vehicle);  // You can override toString() in each class to print the details
+                System.out.println(vehicle);
             }
 
         } catch (JAXBException e) {
