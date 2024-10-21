@@ -2,7 +2,7 @@ package org.example.Model.DAOClasses;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.sql.DataSource;
-import org.example.Interfaces.IGenericDAO;
+import org.example.Model.Interfaces.IGenericDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;

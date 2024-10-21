@@ -1,4 +1,4 @@
-package org.example.Interfaces;
+package org.example.Model.Interfaces;
 import java.sql.SQLException;
 import java.util.List;
 public interface IGenericDAO<T, K>

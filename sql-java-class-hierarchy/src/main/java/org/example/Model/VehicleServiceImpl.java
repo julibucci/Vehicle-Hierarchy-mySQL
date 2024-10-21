@@ -1,5 +1,5 @@
 package org.example.Model;
-import org.example.Interfaces.IGenericDAO;
+import org.example.Model.Interfaces.IGenericDAO;
 import org.example.Model.Classes.Vehicle;
 
 import java.sql.SQLException;

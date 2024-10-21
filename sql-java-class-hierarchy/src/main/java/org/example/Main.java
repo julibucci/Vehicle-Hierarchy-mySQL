@@ -2,13 +2,11 @@ package org.example;
 
 import org.example.Model.*;
 import org.example.Model.Classes.*;
-import javax.xml.bind.JAXBContext;
+
 import javax.xml.bind.JAXBException;
-import java.io.File;
-import javax.xml.bind.Unmarshaller;
 
 import javax.sql.DataSource;
-import org.example.Interfaces.IGenericDAO;
+import org.example.Model.Interfaces.IGenericDAO;
 import org.example.Model.DAOClasses.VehicleDAO;
 import org.example.Model.Parser.JAXBParser;
 
