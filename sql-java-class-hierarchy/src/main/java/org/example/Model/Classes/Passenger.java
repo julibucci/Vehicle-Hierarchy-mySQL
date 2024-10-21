@@ -3,12 +3,24 @@ package org.example.Model.Classes;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Passenger")
-public class Passenger {
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+@XmlRootElement(name = "Passenger")
+public class Passenger
+{
+    //ATTRIBUTES
+    @JsonProperty("passengerID")
     private int passengerID;
+
+    @JsonProperty("name")
     private String name;
 
+    @JsonBackReference
+    private Bus bus;
+
+
+    //CONSTRUCTOR
     public Passenger() {}
 
     public Passenger(int passengerID, String name) {
@@ -16,6 +28,7 @@ public class Passenger {
         this.name = name;
     }
 
+    /// GETTER AND SETTER
     @XmlElement(name = "PassengerID")
     public int getPassengerID() {
         return passengerID;
@@ -34,6 +47,7 @@ public class Passenger {
         this.name = name;
     }
 
+    //TOSTRING METHOD
     @Override
     public String toString() {
         return "Passenger{" +

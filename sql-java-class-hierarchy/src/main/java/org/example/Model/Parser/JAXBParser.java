@@ -1,4 +1,6 @@
-package org.example.Model;
+package org.example.Model.Parser;
+
+import org.example.Model.Classes.Vehicles;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

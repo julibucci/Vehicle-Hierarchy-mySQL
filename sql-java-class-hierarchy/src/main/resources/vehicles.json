@@ -1,51 +1,45 @@
+
 {
-  "Airplane": {
-    "vehicleID": 101,
-    "brand": "Boeing",
-    "model": "737",
-    "airplaneID": 5001,
-    "altitude": 35000,
-    "passengerCapacity": 180,
-    "fuelType": "Jet Fuel"
-  },
-  "Bus": {
-    "vehicleID": 201,
-    "brand": "Volvo",
-    "model": "B9TL",
-    "busID": 3001,
-    "seatingCapacity": 85,
-    "numberOfDoors": 2,
-    "fuelType": "Diesel",
-    "passengers": [
-      {
-        "passengerID": 1,
-        "name": "John Doe"
-      },
-      {
-        "passengerID": 2,
-        "name": "Jane Smith"
-      }
-    ]
-  },
-  "Truck": {
-    "vehicleID": 301,
-    "brand": "Ford",
-    "model": "F-150",
-    "truckID": 4001,
-    "loadCapacity": 5000,
-    "cabinSize": 2
-  },
-  "Passenger": {
-    "passengerID": 1,
-    "name": "John Doe"
-  },
-  "Owner": {
-    "ownerID": 1,
-    "name": "Alex Johnson",
-    "ownedVehicleIDs": [
-      101,
-      201,
-      301
-    ]
-  }
+  "vehicles": [
+    {
+      "vehicleType": "Airplane",
+      "VehicleID": 101,
+      "Brand": "Boeing",
+      "Model": "737",
+      "airplaneID": 5001,
+      "altitude": 35000,
+      "passengerCapacity": 180,
+      "fuelType": "Jet Fuel",
+      "lastMaintenance": "2023-10-01"
+    },
+    {
+      "vehicleType": "Bus",
+      "VehicleID": 201,
+      "Brand": "Volvo",
+      "Model": "B9TL",
+      "busID": 3001,
+      "seatingCapacity": 85,
+      "numberOfDoors": 2,
+      "fuelType": "Diesel",
+      "passengers": [
+        {
+          "passengerID": 1,
+          "name": "John Doe"
+        },
+        {
+          "passengerID": 2,
+          "name": "Jane Smith"
+        }
+      ]
+    },
+    {
+      "vehicleType": "Truck",
+      "VehicleID": 301,
+      "Brand": "Ford",
+      "Model": "F-150",
+      "truckID": 4001,
+      "loadCapacity": 5000,
+      "cabinSize": 2
+    }
+  ]
 }

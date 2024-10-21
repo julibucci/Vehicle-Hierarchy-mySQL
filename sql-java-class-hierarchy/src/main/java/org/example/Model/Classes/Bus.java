@@ -1,32 +1,39 @@
 package org.example.Model.Classes;
 
-import java.util.List;
-
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 
-import javax.xml.bind.annotation.XmlElement;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
+@XmlRootElement(name = "Bus")
+public class Bus extends Vehicle
+{
 
-@XmlRootElement(name = "Bus")  // Matches <Bus> in your XML
-public class Bus extends Vehicle {
-
+    // ATTRIBUTES
+    @JsonProperty("busID")
     private int busID;
+
+    @JsonProperty("seatingCapacity")
     private int seatingCapacity;
+
+    @JsonProperty("numberOfDoors")
     private int numberOfDoors;
+
+    @JsonProperty("fuelType")
     private String fuelType;
+
+    @JsonProperty("passengers")
+    @JsonManagedReference  // Relacion bidireccional con pasajeros
     private List<Passenger> passengers;
 
+    //CONSTRUCTOR
     public Bus() {}
 
-    public Bus(int vehicleID, String brand, String model, int busID, int seatingCapacity, int numberOfDoors, String fuelType, List<Passenger> passengers) {
-        super(vehicleID, brand, model);
+    public Bus(int vehicleID, String brand, String model, String vehicleType, int busID, int seatingCapacity, int numberOfDoors, String fuelType, List<Passenger> passengers) {
+        super(vehicleID, brand, model, vehicleType);
         this.busID = busID;
         this.seatingCapacity = seatingCapacity;
         this.numberOfDoors = numberOfDoors;
@@ -34,6 +41,10 @@ public class Bus extends Vehicle {
         this.passengers = passengers;
     }
 
+    public <E> Bus(int vehicleID, String brand, String model, int vehicleID1, int seatingCapacity, int numberOfDoors, String fuelType, ArrayList<E> es) {
+    }
+
+    //GETTER AND SETTER
     @XmlElement(name = "BusID")
     public int getBusID() {
         return busID;
@@ -79,6 +90,7 @@ public class Bus extends Vehicle {
         this.passengers = passengers;
     }
 
+    // TOSTRING METHOD
     @Override
     public String toString() {
         return super.toString() + "Bus{" +
