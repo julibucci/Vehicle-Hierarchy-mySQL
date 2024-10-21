@@ -1,9 +1,11 @@
-package org.example.Model;
+package org.example.Model.DAOClasses;
 
 import org.example.Model.Classes.Airplane;
 import org.example.Model.Classes.Bus;
 import org.example.Model.Classes.Truck;
 import org.example.Model.Classes.Vehicle;
+import org.example.Model.DAOClasses.AbstractDAOClass;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

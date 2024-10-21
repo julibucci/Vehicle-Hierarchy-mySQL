@@ -9,59 +9,60 @@ import javax.xml.bind.Unmarshaller;
 
 import javax.sql.DataSource;
 import org.example.Interfaces.IGenericDAO;
+import org.example.Model.DAOClasses.VehicleDAO;
+import org.example.Model.Parser.JAXBParser;
+
 import java.sql.SQLException;
+import org.example.Model.Parser.JsonParser;
 
 public class Main {
-    public static void main(String[] args) {
-        try {
-            // Define paths for XML and XSD files
+    public static void main(String[] args) throws SQLException {
+        {
+            // Define paths for XML and JSON files
             String xmlFilePath = "C:\\Users\\julie\\OneDrive\\Documentos\\Vehicle-Hierarchy-mySQL\\sql-java-class-hierarchy\\src\\main\\resources\\vehicles.xml";
-            String xsdFilePath = "C:\\Users\\julie\\OneDrive\\Documentos\\Vehicle-Hierarchy-mySQL\\sql-java-class-hierarchy\\src\\main\\resources\\vehicles.xsd";
+            String jsonFilePath = "C:\\Users\\julie\\OneDrive\\Documentos\\Vehicle-Hierarchy-mySQL\\sql-java-class-hierarchy\\src\\main\\resources\\vehicles.json";
 
             // Validate XML against the XSD using XMLValidator
+            String xsdFilePath = "C:\\Users\\julie\\OneDrive\\Documentos\\Vehicle-Hierarchy-mySQL\\sql-java-class-hierarchy\\src\\main\\resources\\vehicles.xsd";
             boolean isXMLValid = XMLValidator.validateXMLWithXSD(xmlFilePath, xsdFilePath);
-
             if (isXMLValid) {
-                System.out.println("El archivo XML es válido.");
+                System.out.println("El archivo XML es valido.");
             } else {
-                System.out.println("El archivo XML no es válido.");
+                System.out.println("El archivo XML no es valido.");
                 return;
             }
 
             // Set up database connection and vehicle service
             DataSource dataSource = ConnectionPool.getDataSource();
-            IGenericDAO<Vehicle, Integer> vehicleDAO = new VehicleDAO(dataSource);  // Use the generic DAO
+            IGenericDAO<Vehicle, Integer> vehicleDAO = new VehicleDAO(dataSource);
             VehicleServiceImpl vehicleService = new VehicleServiceImpl(vehicleDAO);
 
             // Parse the XML file using JAXBParser
             JAXBParser parser = new JAXBParser();
-            Vehicles vehicles = parser.parseVehiclesXML(xmlFilePath);  // Parse XML into Vehicles object
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();  // Handle SQL exceptions
-        }
-        try {
-            // Parse XML
-            String xmlFilePath = "C:\\Users\\julie\\OneDrive\\Documentos\\Vehicle-Hierarchy-mySQL\\sql-java-class-hierarchy\\src\\main\\resources\\vehicles.xml";  // Update this to your actual XML file path
-            File xmlFile = new File(xmlFilePath);
-
-            JAXBContext context = JAXBContext.newInstance(Vehicles.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            Vehicles vehicles = (Vehicles) unmarshaller.unmarshal(xmlFile);
-
-            // Print parsed vehicles
-            for (Vehicle vehicle : vehicles.getVehicles()) {
-                System.out.println(vehicle);
+            try {
+                Vehicles vehiclesFromXML = parser.parseVehiclesXML(xmlFilePath);
+                // Print parsed vehicles from XML
+                System.out.println("Vehicles from XML:");
+                for (Vehicle vehicle : vehiclesFromXML.getVehicles()) {
+                    System.out.println(vehicle);
+                }
+            } catch (JAXBException e) {
+                throw new RuntimeException(e);
             }
 
-        } catch (JAXBException e) {
-            e.printStackTrace();
+            // Parse the JSON file using JsonParser
+            JsonParser jsonParser = new JsonParser();
+            Vehicles vehiclesFromJSON = jsonParser.parseJson(jsonFilePath);
+
+            // Print parsed vehicles from JSON
+            if (vehiclesFromJSON != null) {
+                System.out.println("Vehicles from JSON:");
+                System.out.println(vehiclesFromJSON);
+            } else {
+                System.out.println("Error al parsear el JSON.");
+            }
         }
-
-
-
-        }
-
     }
+}
+
 

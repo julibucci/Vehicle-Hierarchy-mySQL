@@ -4,12 +4,22 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Owner")
-public class Owner {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+@XmlRootElement(name = "Owner")
+public class Owner
+{
+    //ATTRIBUTES
+    @JsonProperty("ownerID")
     private int ownerID;
+
+    @JsonProperty("name")
     private String name;
+
+    @JsonProperty("ownedVehicleIDs")
     private List<Integer> ownedVehicleIDs;
+
+    //GETTER Y SETTER
 
     @XmlElement(name = "OwnerID")
     public int getOwnerID() {
@@ -38,6 +48,7 @@ public class Owner {
         this.ownedVehicleIDs = ownedVehicleIDs;
     }
 
+    // TOSTRING METHOD
     @Override
     public String toString() {
         return "Owner{" +

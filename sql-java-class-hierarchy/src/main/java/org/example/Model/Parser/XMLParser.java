@@ -1,4 +1,4 @@
-package org.example.Model;
+package org.example.Model.Parser;
 
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
